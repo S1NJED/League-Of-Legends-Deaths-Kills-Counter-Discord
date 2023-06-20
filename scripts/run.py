@@ -10,7 +10,12 @@ CONFIG = json.loads( open(CONFIG_JSON_ABS_PATH, 'r').read() )
 
 # Start League Of Legends
 if not isLeagueClientActive():
-    os.startfile( CONFIG['LOL_EXECUTABLE_PATH'] )
+    LOL_EXECUTABLE_PATH = CONFIG['LOL_EXECUTABLE_PATH']
+    if not LOL_EXECUTABLE_PATH:
+        print("LOL_EXECUTABLE_PATH is not defined in config.json")
+        os.system('pause')
+        raise ValueError
+    os.startfile( LOL_EXECUTABLE_PATH )
 
 # Start the main.py file
 main()
