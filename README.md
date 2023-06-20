@@ -1,14 +1,16 @@
 Send a message to discord (via webhooks) when you die or kill someone on League Of Legends 
 
+![example_message](https://cdn.discordapp.com/attachments/1008888960895963206/1120839755819655270/image.png)
+
 ## About the project
 
 I used the [Riot live client data API](https://developer.riotgames.com/docs/lol#game-client-api_live-client-data-api) to poll data from the current active game.
-When you die or kill someone, it send a message to a [Discord](https://discord.com/) server as a embedded message using webhooks.
+When you *die* or *kill* someone, it send a embedded message to a [Discord](https://discord.com/) server using discord webhooks.
 It shows the all time count and the count during the game.
 
 ## Getting started
 
-This program only run on local, and only work for **Windows10** (for the moment) !
+This program only run in local, and only work for **Windows10** (for the moment) !
 
 ### Prerequisites
 
@@ -20,35 +22,39 @@ This program only run on local, and only work for **Windows10** (for the moment)
    ```sh
    git clone https://github.com/S1NJED/League-Of-Legends-Deaths-Kills-Counter-Discord.git
    ```
-2. Start a python virtual environment (name it .env)
+2. Change the <u>C</u>urrent <u>W</u>orking <u>D</u>irectory
    ```sh
-   python3 -m venv .env
+   cd League-Of-Legends-Deaths-Kills-Counter
    ```
-3. Activate the venv
+3. Create a python virtual environment (name it .env)
+   ```sh
+   python -m venv .env
+   ```
+4. Activate the venv
    ```sh
    .env\Scripts\activate
    ```
-4. Install the required packages
+5. Install the required packages
    ```sh
    pip install -r requirements.txt
    ```
-5. Start config.py and follow the instructions
+6. Start config.py and follow the instructions
    ```python
-   python3 config.py
+   python config.py
    ```
-6. You can now deactivate the venv
+7. You can now exit the venv
    ```sh
-   deactivate
+   exit
    ```
 
 ## Usage
 
-Once configuration is done, you can now manually start the counter by running:
+Once the configuration is done, you can now manually start the counter by running:
 
 * `start.py`: start the counter with a console
-* `start_background.pyw`: start the counter withount a console
+* `start_background.pyw`: start the counter without console
 
-**NB**: *These script launch League Of Legends if not started*
+**NB**: *Theses scripts launch League Of Legends if it is not running*
 
 ## Roadmap
 
