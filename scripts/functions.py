@@ -1,6 +1,7 @@
 import json, requests, urllib3, subprocess, os
 from requests.exceptions import ConnectionError
 from time import sleep
+from random import choice
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning) # Disable warning when verify=False
 CWD = os.path.abspath(os.path.dirname(__file__))
@@ -60,7 +61,6 @@ def isLeagueClientActive():
 
 def waitForLeagueClient():
     cmd = "tasklist | findstr League"
-    print("Waiting for league client to start.")
     
     while True:
         res = subprocess.run(cmd, capture_output=True, text=False, shell=True)
@@ -84,6 +84,22 @@ def updateCount(eventType, value):
         data[eventType + '_COUNT'] += value
         json.dump(data, file, indent=4)    
 
+
+def getRandomImages(eventType):
+    if not eventType in ["DEATHS", "KILLS"]:
+        return print("Event type must be equal to 'DEATHS or 'KILLS'")
+
+    CONFIG = json.loads( open(CONFIG_JSON_ABS_PATH, 'r').read() )
+    imageArray = CONFIG[eventType + "_MESSAGE_IMAGES_GIFS_URLS"]
+    # If no image/gifs in the config.json then use theses by default
+    if not len(imageArray):
+        if eventType == "DEATHS":
+            return "https://media.tenor.com/QgTx6fv4IpAAAAAd/el-risitas-juan-joya-borja.gif"
+        elif eventType == "KILLS":
+            return "https://tenor.com/view/giga-chad-gif-23143840"
+    
+    return choice(imageArray)
+    
 
 def sendDiscordMessage(eventType):
     if not eventType in ["DEATHS", "KILLS"]: 
@@ -109,7 +125,7 @@ def sendDiscordMessage(eventType):
         "description": DESCRIPTION,
         "color": CONFIG['DEATHS_COLOR_EMBED'],
         "image": {
-            "url": "https://media.tenor.com/QgTx6fv4IpAAAAAd/el-risitas-juan-joya-borja.gif" # TODO: make it random
+            "url": getRandomImages(eventType)
         }
     }
     PAYLOAD = {
@@ -122,8 +138,6 @@ def sendDiscordMessage(eventType):
     status_code = req.status_code
 
     if status_code != 204:
-        
-        # TO DELETE: Saving status_code in log.txt to see whats wrong.
         with open(os.path.join(MAIN_DIR, 'log.txt'), 'a') as log:
             log.write(str(status_code) + "\n")
         
