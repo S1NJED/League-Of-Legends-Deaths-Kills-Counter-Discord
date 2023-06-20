@@ -30,7 +30,7 @@ def main():
             if previousDeathsCount != currentDeathsCount:
                 print("You died.")
                 updateCount(DEATHS, (currentDeathsCount - previousDeathsCount))
-                sendDiscordMessage(DEATHS)
+                sendDiscordMessage(DEATHS, currentDeathsCount)
                 previousDeathsCount = currentDeathsCount
 
             sleep(3)

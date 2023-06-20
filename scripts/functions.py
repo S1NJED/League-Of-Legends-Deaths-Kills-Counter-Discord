@@ -101,7 +101,7 @@ def getRandomImages(eventType):
     return choice(imageArray)
     
 
-def sendDiscordMessage(eventType):
+def sendDiscordMessage(eventType, currentValue):
     if not eventType in ["DEATHS", "KILLS"]: 
         return print("Event type must be equal to 'DEATHS' or 'KILLS'")
     
@@ -109,12 +109,12 @@ def sendDiscordMessage(eventType):
     
     DISCORD_USERNAME = f"<@{CONFIG['DISCORD_USER_ID']}>"
     WEBHOOK_USERNAME = CONFIG['WEBHOOK']['USERNAME'] or "Lol Death Counter"
-    WEBHOOK_AVATAR_URL = CONFIG['WEBHOOK']['AVATAR_URL'] or "https://cdn.discordapp.com/attachments/775787790923333673/1112419317074628608/IMG_2883.jpg"
+    WEBHOOK_AVATAR_URL = CONFIG['WEBHOOK']['AVATAR_URL']
     DEATH_COUNT = CONFIG['DEATHS_COUNT']
     KILLS_COUNT = CONFIG['KILLS_COUNT'] # For later ... 
-    DESCRIPTION = f"{DISCORD_USERNAME} has died {DEATH_COUNT} times."
+    DESCRIPTION = f"{DISCORD_USERNAME} has died {currentValue} times in this game. ({DEATH_COUNT} in total)"
     if eventType == "kills": # TODO: later
-        DESCRIPTION = f"{DISCORD_USERNAME} killed "
+        DESCRIPTION = f"{DISCORD_USERNAME} killed {currentValue} people in this game. ({KILLS_COUNT} in total)"
     
     DISCORD_WEBHOOK_URL = CONFIG['WEBHOOK']['URL']
     HEADERS = {
