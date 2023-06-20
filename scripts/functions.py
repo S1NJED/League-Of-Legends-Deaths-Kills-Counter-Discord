@@ -124,7 +124,7 @@ def sendDiscordMessage(eventType):
     if status_code != 204:
         
         # TO DELETE: Saving status_code in log.txt to see whats wrong.
-        with open(os.path.join(parent_directory, 'log.txt'), 'a') as log:
+        with open(os.path.join(MAIN_DIR, 'log.txt'), 'a') as log:
             log.write(str(status_code) + "\n")
         
         print("Cannot send message.")
