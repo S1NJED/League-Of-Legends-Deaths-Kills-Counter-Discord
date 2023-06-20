@@ -9,6 +9,8 @@ def main():
     
     # Wait for league client to start if not active
     if not isLeagueClientActive():
+        print("League Of Legends is not active ...")
+        print("Starting League Of Legends ...")
         waitForLeagueClient()
 
     print("Death counter is starting...")
@@ -20,6 +22,8 @@ def main():
         
         while isGameActive():
             data = getSummonerScore()
+            if not data:
+                continue
             currentKillsCount = data['kills']
             currentDeathsCount = data['deaths']
 
@@ -32,4 +36,5 @@ def main():
             sleep(3)
 
     print("League Client is no longer active, exit.")
+    os.system('deactivate')
     os.system('exit')
