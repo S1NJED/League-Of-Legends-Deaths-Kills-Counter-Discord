@@ -6,8 +6,12 @@
         "USERNAME": "",
         "AVATAR_URL": ""
     },
-    "DEATHS_COUNT": 0,
-    "KILLS_COUNT": 0,
+    "DEATHS_COUNT": 2,
     "DEATHS_COLOR_EMBED": 16726283,
-    "KILLS_COLOR_EMBED": 0
+    "DEATHS_MESSAGE_IMAGES_GIFS_URLS": [
+    ],
+    "KILLS_COUNT": 0,
+    "KILLS_COLOR_EMBED": 6422374,
+    "KILLS_MESSAGE_IMAGES_GIFS_URLS": [
+    ]
 }
