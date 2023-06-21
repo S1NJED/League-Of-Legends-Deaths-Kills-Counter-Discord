@@ -1,0 +1,4 @@
+allgamedata.json
+.env
+scripts/__pycache__
+test*
