@@ -31,6 +31,17 @@ This program only run in local, and only work for **Windows10** (for the moment)
    setup.bat
    ```
 
+
+## Configuration
+
+After running setup.bat and specifying LoL path executable, discord user ID, etc
+You can add images/gifs to the embedded discord message.
+
+Just start `add_images_gifs.py` file and follow instructions.
+
+**NB**: *URLS must finish with a valid extension. (.gif, .png, .jpg, etc)*
+
+
 ## Usage
 
 Once the configuration is done, you can now manually start the counter by running:
@@ -40,10 +51,6 @@ Once the configuration is done, you can now manually start the counter by runnin
 
 **NB**: *Theses scripts launch League Of Legends if it is not running*
 
-## Roadmap
-
-- [ ] Adding kill counter
-- [ ] Create a shortcut to run start.py and league of legends with lol icon 
 
 ## Contact
 
