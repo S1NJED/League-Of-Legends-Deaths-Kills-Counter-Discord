@@ -8,6 +8,8 @@ CWD = os.path.abspath(os.path.dirname(__file__))
 MAIN_DIR = os.path.abspath(os.path.join(CWD, ".."))
 CONFIG_JSON_ABS_PATH = os.path.join(MAIN_DIR, 'config.json')
 
+DEATHS = "DEATHS"
+KILLS  = "KILLS"
 
 def getSummonerName():
     URL = "https://127.0.0.1:2999/liveclientdata/activeplayername"
@@ -73,7 +75,7 @@ def waitForLeagueClient():
     
 
 def updateCount(eventType, value):
-    if not eventType in ["DEATHS", "KILLS"]:
+    if not eventType in [DEATHS, KILLS]:
         return print("Event type must be 'DEATHS' or 'KILLS'")
 
     data = 0
@@ -86,39 +88,37 @@ def updateCount(eventType, value):
 
 
 def getRandomImages(eventType):
-    if not eventType in ["DEATHS", "KILLS"]:
+    if not eventType in [DEATHS, KILLS]:
         return print("Event type must be equal to 'DEATHS or 'KILLS'")
 
     CONFIG = json.loads( open(CONFIG_JSON_ABS_PATH, 'r').read() )
     imageArray = CONFIG[eventType + "_MESSAGE_IMAGES_GIFS_URLS"]
     # If no image/gifs in the config.json then use theses by default
     if not len(imageArray):
-        if eventType == "DEATHS":
-            return "https://media.tenor.com/QgTx6fv4IpAAAAAd/el-risitas-juan-joya-borja.gif"
-        elif eventType == "KILLS":
-            return "https://tenor.com/view/giga-chad-gif-23143840"
+        return None
     
     return choice(imageArray)
     
 
 def sendDiscordMessage(eventType, currentValue):
-    if not eventType in ["DEATHS", "KILLS"]: 
+    if not eventType in [DEATHS, KILLS]: 
         return print("Event type must be equal to 'DEATHS' or 'KILLS'")
     
     CONFIG = json.loads( open(CONFIG_JSON_ABS_PATH, 'r').read() )
     
     DISCORD_USERNAME = f"<@{CONFIG['DISCORD_USER_ID']}>"
+    SUMMONER_USERNAME = getSummonerName()
     WEBHOOK_USERNAME = CONFIG['WEBHOOK']['USERNAME'] or "Lol Death Counter"
     WEBHOOK_AVATAR_URL = CONFIG['WEBHOOK']['AVATAR_URL']
     
-    DEATH_COUNT = CONFIG['DEATHS_COUNT']
+    DEATHS_COUNT = CONFIG['DEATHS_COUNT']
     KILLS_COUNT = CONFIG['KILLS_COUNT']
     
-    DESCRIPTION = f"{DISCORD_USERNAME} died {currentValue} times in this game.\n({DEATH_COUNT} in total)"
-    TITLE = f"{DISCORD_USERNAME} died ... 💀"
-    if eventType == "kills": # TODO: later
+    DESCRIPTION = f"{DISCORD_USERNAME} died {currentValue} times in this game.\n({DEATHS_COUNT} in total)"
+    TITLE = f"{SUMMONER_USERNAME} died ... 💀"
+    if eventType == KILLS:
         DESCRIPTION = f"{DISCORD_USERNAME} killed {currentValue} players in this game.\n({KILLS_COUNT} in total)"
-        TITLE = f"{DISCORD_USERNAME} killed someone ! ✅"
+        TITLE = f"{SUMMONER_USERNAME} killed someone ! ✅"
     
     DISCORD_WEBHOOK_URL = CONFIG['WEBHOOK']['URL']
     HEADERS = {
@@ -129,7 +129,7 @@ def sendDiscordMessage(eventType, currentValue):
         "description": DESCRIPTION,
         "color": CONFIG[eventType + '_COLOR_EMBED'],
         "image": {
-            "url": getRandomImages(eventType)
+            "url": getRandomImages(eventType) # Select random img/gifs from config.json
         }
     }
     PAYLOAD = {
