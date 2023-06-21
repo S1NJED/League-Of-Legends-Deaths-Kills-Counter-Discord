@@ -26,25 +26,9 @@ This program only run in local, and only work for **Windows10** (for the moment)
    ```sh
    cd League-Of-Legends-Deaths-Kills-Counter
    ```
-3. Create a python virtual environment (name it .env)
+3. Start the setup.bat file
    ```sh
-   python -m venv .env
-   ```
-4. Activate the venv
-   ```sh
-   .env\Scripts\activate
-   ```
-5. Install the required packages
-   ```sh
-   pip install -r requirements.txt
-   ```
-6. Start config.py and follow the instructions
-   ```python
-   python config.py
-   ```
-7. You can now exit the venv
-   ```sh
-   exit
+   setup.bat
    ```
 
 ## Usage
