@@ -22,11 +22,11 @@ This program only run in local, and only work for **Windows10** (for the moment)
    ```sh
    git clone https://github.com/S1NJED/League-Of-Legends-Deaths-Kills-Counter-Discord.git
    ```
-2. Change the <u>C</u>urrent <u>W</u>orking <u>D</u>irectory
+2. Change the Current Working Directory
    ```sh
-   cd League-Of-Legends-Deaths-Kills-Counter
+   cd League-Of-Legends-Deaths-Kills-Counter-Discord
    ```
-3. Start the setup.bat file
+3. Start the setup.bat file or double click on it
    ```sh
    setup.bat
    ```
