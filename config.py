@@ -3,6 +3,7 @@ import json, os
 CWD = os.path.dirname(__file__)
 CONFIG_JSON_ABS_PATH = os.path.join(CWD, 'config.json')
 CONFIG = json.loads( open(CONFIG_JSON_ABS_PATH, 'r').read() )
+DEFAULT_PATH = r"C:\Riot Games\League of Legends\LeagueClient.exe"
 
 
 def confirmChoice(data):
@@ -20,9 +21,18 @@ def skip(data):
         return True
     return False
 
+def isDefaultPathLolExist():
+    return os.path.exists(DEFAULT_PATH)
+
+
 print("Press ENTER to skip.\n")
 
 while True:
+    if isDefaultPathLolExist():
+        print("Default path found. (" + DEFAULT_PATH + ")")
+        if confirmChoice(DEFAULT_PATH):
+           break
+    
     msg = "\n1. Enter your League Of Legends executable path (ex: path/to/exe/LeagueClient.exe)\n> "
     LOL_EXECUTABLE_PATH = str(input(msg))
     if skip(LOL_EXECUTABLE_PATH): break
