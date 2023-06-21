@@ -33,6 +33,12 @@ def main():
                 sendDiscordMessage(DEATHS, currentDeathsCount)
                 previousDeathsCount = currentDeathsCount
 
+            if previousKillsCount != currentKillsCount:
+                print("You killed someone !!")
+                updateCount(KILLS, (currentKillsCount - previousKillsCount))
+                sendDiscordMessage(KILLS, currentKillsCount)
+                previousKillsCount = currentKillsCount
+
             sleep(3)
 
     print("League Client is no longer active, exit.")

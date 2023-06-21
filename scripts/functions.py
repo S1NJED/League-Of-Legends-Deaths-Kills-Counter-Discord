@@ -110,20 +110,24 @@ def sendDiscordMessage(eventType, currentValue):
     DISCORD_USERNAME = f"<@{CONFIG['DISCORD_USER_ID']}>"
     WEBHOOK_USERNAME = CONFIG['WEBHOOK']['USERNAME'] or "Lol Death Counter"
     WEBHOOK_AVATAR_URL = CONFIG['WEBHOOK']['AVATAR_URL']
+    
     DEATH_COUNT = CONFIG['DEATHS_COUNT']
-    KILLS_COUNT = CONFIG['KILLS_COUNT'] # For later ... 
-    DESCRIPTION = f"{DISCORD_USERNAME} has died {currentValue} times in this game. ({DEATH_COUNT} in total)"
+    KILLS_COUNT = CONFIG['KILLS_COUNT']
+    
+    DESCRIPTION = f"{DISCORD_USERNAME} died {currentValue} times in this game.\n({DEATH_COUNT} in total)"
+    TITLE = f"{DISCORD_USERNAME} died ... 💀"
     if eventType == "kills": # TODO: later
-        DESCRIPTION = f"{DISCORD_USERNAME} killed {currentValue} people in this game. ({KILLS_COUNT} in total)"
+        DESCRIPTION = f"{DISCORD_USERNAME} killed {currentValue} players in this game.\n({KILLS_COUNT} in total)"
+        TITLE = f"{DISCORD_USERNAME} killed someone ! ✅"
     
     DISCORD_WEBHOOK_URL = CONFIG['WEBHOOK']['URL']
     HEADERS = {
         "Content-type": "application/json"
     }
     EMBED = {
-        "title": "RIP" if eventType == "DEATHS" else "✅",
+        "title": TITLE,
         "description": DESCRIPTION,
-        "color": CONFIG['DEATHS_COLOR_EMBED'],
+        "color": CONFIG[eventType + '_COLOR_EMBED'],
         "image": {
             "url": getRandomImages(eventType)
         }
