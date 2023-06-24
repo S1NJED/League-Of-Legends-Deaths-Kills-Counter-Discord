@@ -101,12 +101,12 @@ def getRandomImages(eventType):
 
   
 def getGameTime():
-    URL = "https://127.0.0.1:2999/liveclientdata/eventdata"
+    URL = "https://127.0.0.1:2999/liveclientdata/gamestats"
     
     try:
         req = requests.get(URL, verify=False)
         data = req.json()
-        seconds = int(data['gameTime']) # seconds gameTime: 300.239293783
+        seconds = int(data['gameTime'])
         hours = seconds // 3600
         minutes = (seconds % 3600) // 60
         seconds = (seconds % 3600) % 60
