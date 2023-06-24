@@ -98,7 +98,34 @@ def getRandomImages(eventType):
         return None
     
     return choice(imageArray)
+
+  
+def getGameTime():
+    URL = "https://127.0.0.1:2999/liveclientdata/eventdata"
     
+    try:
+        req = requests.get(URL, verify=False)
+        data = req.json()
+        seconds = int(data['gameTime']) # seconds gameTime: 300.239293783
+        hours = seconds // 3600
+        minutes = (seconds % 3600) // 60
+        seconds = (seconds % 3600) % 60
+        return hours, minutes, seconds
+        
+    except ConnectionError as err:
+        return False
+
+
+def formatGameTime():
+    hours, minutes, seconds = getGameTime()
+    time = ""
+    if hours:
+        time += f"{hours}h "
+    if minutes:
+        time += f"{minutes} min"
+    time += f"{seconds} s"
+    return time
+
 
 def sendDiscordMessage(eventType, currentValue):
     if not eventType in [DEATHS, KILLS]: 
@@ -114,10 +141,18 @@ def sendDiscordMessage(eventType, currentValue):
     DEATHS_COUNT = CONFIG['DEATHS_COUNT']
     KILLS_COUNT = CONFIG['KILLS_COUNT']
     
-    DESCRIPTION = f"{DISCORD_USERNAME} died {currentValue} times in this game.\n({DEATHS_COUNT} in total)"
+    DESCRIPTION = (
+        f"{DISCORD_USERNAME} died {currentValue} times in this game.\n"
+        f"({DEATHS_COUNT} in total)\n"
+        f":hourglass: {formatGameTime()}"
+    )
     TITLE = f"{SUMMONER_USERNAME} died ... 💀"
     if eventType == KILLS:
-        DESCRIPTION = f"{DISCORD_USERNAME} killed {currentValue} players in this game.\n({KILLS_COUNT} in total)"
+        DESCRIPTION = (
+            f"{DISCORD_USERNAME} killed {currentValue} players in this game.\n"
+            f"({KILLS_COUNT} in total)\n"
+            f":hourglass: {formatGameTime()}"
+        )
         TITLE = f"{SUMMONER_USERNAME} killed someone ! ✅"
     
     DISCORD_WEBHOOK_URL = CONFIG['WEBHOOK']['URL']
