@@ -1,6 +1,7 @@
 Send a message to discord (via webhooks) when you die or kill someone on League Of Legends 
 
-![example_message](https://cdn.discordapp.com/attachments/1008888960895963206/1120839755819655270/image.png)
+![kills_message](https://cdn.discordapp.com/attachments/1008888960895963206/1122446180828327936/image.png)
+![deaths_message](https://cdn.discordapp.com/attachments/1008888960895963206/1122446386542149642/image.png)
 
 ## About the project
 
